@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIG CODE</title>
+    <link rel="shortcut icon" href="{% static 'IMAGES/logo.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/theme/dracula.min.css">
     <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/lint.css">
+    <meta name="google-adsense-account" content="ca-pub-5015225987971479">
 </head>
 <body style="margin: 0; background-color: #1e1e1e;">
     <div class="container">
@@ -25,7 +26,11 @@
         </div>
         <div id="language-suggestion"></div>
         <textarea id="code-editor"></textarea>
-        <div id="terminal" style="margin-bottom: 100px;"></div>
+        <div id="terminal">
+            <div id="terminal-output"></div>
+            <input type="text" id="terminal-input"  style="width: calc(100% - 70px); color: white; background-color: transparent; border: none; outline: none;">
+            <button id="terminal-submit" style="color: white; background-color: transparent; border: none; outline: none; cursor: pointer;"></button>
+        </div>
 
             <hr width="100%">
             <strong style="text-align: center; padding: 20px;">© 2024 <a href="https://github.com/ayhandev/" style="color: white;">ayhandev</a></strong>
@@ -35,16 +40,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/meta.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/hint/show-hint.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/hint/anyword-hint.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/hint/html-hint.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/edit/closebrackets.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/edit/matchbrackets.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/lint.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/javascript-lint.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/css-lint.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/xml-lint.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/html-lint.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/json-lint.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/coffeescript-lint.min.js"></script>
     <script>
         var editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
             lineNumbers: true,
@@ -72,7 +69,7 @@
                 // Add cases for other languages and their respective color themes
             }
         }
-        
+
         // Show language suggestion
         document.getElementById('language-search').addEventListener('input', function() {
             var searchValue = this.value.toLowerCase();
@@ -123,7 +120,7 @@
     <title>Title</title>
 </head>
 <body>
-    
+
 </body>
 </html>`;
                 editor.setValue(htmlStructure);
@@ -147,10 +144,15 @@
 
         // Languages array
         var languages = ['Python', 'HTML'];
-            
+
         // Run button click event
         document.getElementById('run-button').addEventListener('click', function() {
             runCode();
+        });
+
+        // Send button click event
+        document.getElementById('terminal-submit').addEventListener('click', function() {
+            executeCommand();
         });
 
         // Function to run code
@@ -173,11 +175,43 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('terminal').innerText = data.output;
+                    document.getElementById('terminal-output').innerText = data.output;
                 });
             }
         }
-        
+
+        // Function to handle key press event
+        document.getElementById('terminal-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                executeCommand();
+            }
+        });
+
+        // Function to execute command
+        function executeCommand() {
+            var command = document.getElementById('terminal-input').value;
+            // Display the command in the terminal
+            var terminalOutput = document.getElementById('terminal-output');
+            var newCommandDiv = document.createElement('div');
+            newCommandDiv.textContent = '> ' + command;
+            terminalOutput.appendChild(newCommandDiv);
+            // Clear the input field
+            document.getElementById('terminal-input').value = '';
+            // Execute the command (you need to implement this part)
+            // For example:
+            if (command === 'clear') {
+                // Clear the terminal output
+                terminalOutput.innerHTML = '';
+            } else {
+                // Handle other commands
+                // You can execute the command using fetch or any other appropriate method
+                // For now, just display a message
+                var response = 'Command not recognized: ' + command;
+                var responseDiv = document.createElement('div');
+                responseDiv.textContent = response;
+                terminalOutput.appendChild(responseDiv);
+            }
+        }
     </script>
 </body>
 </html>

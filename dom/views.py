@@ -1,5 +1,4 @@
 from django.shortcuts import render
-import subprocess
 from django.http import JsonResponse
 import threading
 import subprocess
@@ -7,9 +6,6 @@ import subprocess
 
 def home(request):
     return render(request, 'index.html')
-
-# Python (Django view)
-import subprocess
 
 def run_code(request):
     if request.method == 'POST':

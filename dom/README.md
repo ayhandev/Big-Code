@@ -38,5 +38,5 @@ Contributing
 Contributions to this project are not accepted. The code editor is provided "as is," and further modifications or distributions are not allowed according to the terms of the license.
 
 # Issues
-Please report any issues or feature requests [here.](t.me/@Ayhancik888)
+Please report any issues or feature requests jumanyyazowayhan32@gmail.com
 

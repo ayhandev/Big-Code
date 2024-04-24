@@ -1,0 +1,90 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    font-family: Consolas, 'Courier New', monospace;
+    min-height: 100vh; /* Set minimum height to fill the viewport */
+    padding: 20px;
+}
+
+/* Styles for the toolbar */
+.toolbar {
+    display: flex;
+    background-color: #2d2d30;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.toolbar button {
+    background-color: transparent;
+    border: none;
+    color: #d4d4d4;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+/* Styles for the code editor */
+#code-editor {
+    flex: 1;
+    outline: none;
+    min-height: 300px; /* Set minimum height for the code editor */
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #2d2d30;
+    color: #d4d4d4;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Styles for the language selection */
+#language-selection-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#language-selection {
+    padding: 5px;
+    background-color: #2d2d30;
+    color: #d4d4d4;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+/* Styles for the language search input */
+#language-search {
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 5px;
+    background-color: #2d2d30;
+    color: #d4d4d4;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+}
+
+/* Styles for the language suggestion box */
+#language-suggestion {
+    background-color: #2d2d30;
+    color: #d4d4d4;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+    display: none;
+    max-height: 150px; /* Set maximum height for the suggestion box */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Styles for language suggestions */
+.language-suggestion-item {
+    cursor: pointer;
+    padding: 5px;
+}
+
+.language-suggestion-item:hover {
+    background-color: #3e3e3e;
+}

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,102 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/theme/dracula.min.css">
-    <style>
-        /* Styles for the code editor container */
-        .container {
-            display: flex;
-            flex-direction: column;
-            background-color: #1e1e1e;
-            color: #d4d4d4;
-            font-family: Consolas, 'Courier New', monospace;
-            min-height: 100vh; /* Set minimum height to fill the viewport */
-            padding: 20px;
-        }
-
-        /* Styles for the toolbar */
-        .toolbar {
-            display: flex;
-            background-color: #2d2d30;
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-
-        .toolbar button {
-            background-color: transparent;
-            border: none;
-            color: #d4d4d4;
-            cursor: pointer;
-            margin-right: 5px;
-        }
-
-        /* Styles for the code editor */
-        #code-editor {
-            flex: 1;
-            outline: none;
-            min-height: 300px; /* Set minimum height for the code editor */
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #2d2d30;
-            color: #d4d4d4;
-            border: none;
-            border-radius: 5px;
-        }
-
-        /* Styles for the language selection */
-        #language-selection-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        #language-selection {
-            padding: 5px;
-            background-color: #2d2d30;
-            color: #d4d4d4;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-right: 10px;
-        }
-
-        /* Styles for the language search input */
-        #language-search {
-            padding: 8px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            margin-top: 5px;
-            background-color: #2d2d30;
-            color: #d4d4d4;
-            width: 100%;
-            box-sizing: border-box;
-            outline: none;
-        }
-
-        /* Styles for the language suggestion box */
-        #language-suggestion {
-            background-color: #2d2d30;
-            color: #d4d4d4;
-            padding: 5px;
-            border-radius: 5px;
-            margin-top: 5px;
-            display: none;
-            max-height: 150px; /* Set maximum height for the suggestion box */
-            overflow-y: auto; /* Enable vertical scrolling */
-        }
-
-        /* Styles for language suggestions */
-        .language-suggestion-item {
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .language-suggestion-item:hover {
-            background-color: #3e3e3e;
-        }
-
-        /* Styles for the footer */
-
-    </style>
+    <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/lint.css">
 </head>
 <body style="margin: 0; background-color: #1e1e1e;">
     <div class="container">
@@ -128,19 +35,42 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/meta.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/hint/show-hint.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/hint/anyword-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/hint/html-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/lint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/javascript-lint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/css-lint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/xml-lint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/html-lint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/json-lint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/lint/coffeescript-lint.min.js"></script>
     <script>
         var editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
             lineNumbers: true,
             theme: 'dracula',
-            autoCloseBrackets: true,
+            autoCloseBrackets: true, // Auto-close brackets
             matchBrackets: true,
-            extraKeys: {"Enter": "autoComplete"}, // Auto-complete on Enter key press
+            lint: true, // Enable linting
+            extraKeys: {"Ctrl-Space": "autocomplete"}, // Trigger autocomplete on Ctrl+Space
             hintOptions: {hint: CodeMirror.hint.anyword, html: true} // Enable hinting for any word and HTML tags
         });
 
         function setLanguage(language) {
             document.getElementById('language-selection').textContent = 'Selected Language: ' + language;
             editor.setOption('mode', language.toLowerCase());
+            // Set code color based on language
+            switch(language.toLowerCase()) {
+                case 'html':
+                    editor.setOption('theme', 'dracula');
+                    editor.setOption('indentUnit', 2); // Set indentation unit for HTML
+                    break;
+                case 'python':
+                    editor.setOption('theme', 'default'); // Change to Python color theme
+                    editor.setOption('indentUnit', 4); // Set indentation unit for Python
+                    break;
+                // Add cases for other languages and their respective color themes
+            }
         }
         
         // Show language suggestion
@@ -250,7 +180,4 @@
         
     </script>
 </body>
-</html> 
-
-
-
+</html>

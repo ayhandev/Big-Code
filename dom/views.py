@@ -1,11 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import JsonResponse
 import threading
 import subprocess
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 
+
+@login_required(login_url='users/sign_in')
 def home(request):
-    return render(request, 'index.html')
+    languages = [{'code': code, 'name': name} for code, name in settings.LANGUAGES]
+    return render(request, 'index.html', {'languages': languages})
 
 def run_code(request):
     if request.method == 'POST':
@@ -37,3 +42,11 @@ def run_code(request):
 
 def doc(request):
     return render(request, 'doc.html')
+
+from django.utils.translation import activate
+
+def set_language(request):
+    if 'language' in request.GET:
+        language = request.GET['language']
+        activate(language)
+    return redirect(request.GET.get('next', '/'))

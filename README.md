@@ -38,5 +38,5 @@ Contributing
 Contributions to this project are not accepted. The code editor is provided "as is," and further modifications or distributions are not allowed according to the terms of the license.
 
 # Issues
-Please report any issues or feature requests jumanyyazowayhan32@gmail.com
+Report any issues or feature requests to us on Instagram @big_code_official
 

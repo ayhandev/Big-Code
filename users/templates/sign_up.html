@@ -1,0 +1,88 @@
+{% block auth %}
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+        font-family: Consolas, 'Courier New', monospace;
+        min-height: 100vh; /* Set minimum height to fill the viewport */
+        padding: 20px;
+    }
+    
+    /* Styles for the authentication form */
+    .auth-form {
+        background-color: #2d2d30;
+        color: #d4d4d4;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+    
+    .auth-form h1 {
+        color: #d4d4d4;
+        margin-bottom: 20px;
+    }
+    
+    .auth-form .field {
+        margin-bottom: 15px;
+    }
+    
+    .auth-form .label {
+        color: #d4d4d4;
+    }
+    
+    .auth-form .button {
+        background-color: #4a90e2;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 5px;
+        width: 100%;
+    }
+    
+    .auth-form .button:hover {
+        background-color: #357ad1;
+    }
+    
+    .auth-form .content {
+        color: #d4d4d4;
+    }
+    
+    .auth-form a {
+        color: #4a90e2;
+    }
+    
+    .auth-form a:hover {
+        text-decoration: underline;
+    }
+    
+</style>
+<body style="margin: 0;">
+    
+    <div class="container">
+        <div class="auth-form">
+            <form class="form has-text-centered" method="post">
+                <h1 class="title is-size-2 has-text-centered">Sign up</h1>
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="field">
+                    <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+                {% endfor %}
+                <button type="submit" class="button is-primary is-fullwidth">
+                    Submit
+                </button>
+                <hr class="has-background-grey-lighter">
+                <div class="is-size-5 has-text-grey-light">Already have an account?</div>
+                <a href="{% url 'users:sign_in' %}"  >
+                    Move to login page
+                </a>
+            </form>
+        </div>
+    </div>
+</body>
+    {% endblock %}
+    

@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,12 +15,20 @@
 </head>
 <body style="margin: 0; background-color: #1e1e1e;">
     <div class="container">
-        <h1 style="margin: 0 auto 20px;">BIG CODE</h1>
+
+        
+        <h1 style="margin: 0 auto 20px;">BIG CODE </h1>
+        
+        
         <div class="toolbar">
-            <button id="run-button" ><i class="fas fa-play"></i> Run</button>
+            <button id="run-button"><i class="fas fa-play"></i> Run</button>
             <a href="{% url 'dom:doc' %}" style="color: white;">Documentation</a>
             <input type="file" id="file-input" multiple webkitdirectory directory style="display: none;">
+            <div style="flex-grow: 1;"></div>
+            <a href="#" style="margin-left: auto;margin-right: 5px; color: white;">{{ user }}</a>
+            <a style="margin-left: 10px; color: white;" href="{% url 'users:sign_out' %}">Logout</a>
         </div>
+        
         <div id="language-selection-container">
             <div id="language-selection">Selected Language: HTML</div>
             <input type="text" id="language-search" placeholder="Search languages...">
@@ -43,6 +52,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/edit/closebrackets.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/edit/matchbrackets.min.js"></script>
     <script>
+        function changeLanguage(lang) {
+            // Обновление текста на странице в соответствии с выбранным языком
+            switch (lang) {
+                case 'ru':
+                    updateRussianText();
+                    break;
+                case 'tk':
+                    updateTurkmenText();
+                    break;
+                default:
+                    // По умолчанию оставить текущий язык
+                    break;
+            }
+        }
+        
+        function updateRussianText() {
+            // Обновление текста на русский язык
+            document.getElementById('title').innerText = 'BIG CODE';
+            document.getElementById('documentation-link').innerText = 'Документация';
+            document.getElementById('user-link').innerText = '{{ user }}';
+        }
+        
+        function updateTurkmenText() {
+            // Обновление текста на туркменский язык
+            document.getElementById('title').innerText = 'ULU KOD';
+            document.getElementById('documentation-link').innerText = 'Sözlük';
+            document.getElementById('user-link').innerText = '{{ user }}';
+        }
+        
         var editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
             lineNumbers: true,
             theme: 'dracula',

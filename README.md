@@ -28,7 +28,7 @@ Clone the repository: git clone https://github.com/ayhandev/Big-Code.git
 Navigate to the project directory: cd code-editor
 Open the index.html file in your preferred web browser.
 License
-This project is licensed under the Creative Commons Zero v1.0 Universal (CC0 1.0) Public Domain Dedication. This license allows users to use the code editor without restrictions, but they are not permitted to modify or distribute it after making changes.
+This project is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives (CC BY-NC-ND) License. This license allows users to use the code editor without restrictions, but they are not permitted to modify or distribute it after making changes.
 
 
 # Acknowledgements

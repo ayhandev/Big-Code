@@ -14,19 +14,22 @@
     <meta name="google-adsense-account" content="ca-pub-5015225987971479">
 </head>
 <body style="margin: 0; background-color: #1e1e1e;">
+    <div id="subscription-message" style="display: none;">
+        <p>Для доступа к этой странице необходимо подписаться на наш Instagram: <a href="https://www.instagram.com/big_code_official/">@big_code_official</a></p>
+    </div>
+    
     <div class="container">
-
+        
         
         <h1 style="margin: 0 auto 20px;">BIG CODE </h1>
         
         
         <div class="toolbar">
             <button id="run-button"><i class="fas fa-play"></i> Run</button>
-            <a href="{% url 'dom:doc' %}" style="color: white;">Documentation</a>
+            <a href="{% url "dom:helo" %}" style="text-decoration: none; color: white;">Back</a>
             <input type="file" id="file-input" multiple webkitdirectory directory style="display: none;">
             <div style="flex-grow: 1;"></div>
             <a href="#" style="margin-left: auto;margin-right: 5px; color: white;">{{ user }}</a>
-            <a style="margin-left: 10px; color: white;" href="{% url 'users:sign_out' %}">Logout</a>
         </div>
         
         <div id="language-selection-container">
@@ -42,7 +45,8 @@
         </div>
 
             <hr width="100%">
-            <strong style="text-align: center; padding: 20px;">© 2024 <a href="https://github.com/ayhandev/" style="color: white;">ayhandev</a></strong>
+
+            <strong style="text-align: center; padding: 20px;">© 2024 BIG CODE. All rights reserved.<a href="https://github.com/ayhandev/" style="color: white;">ayhandev</a></strong>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>

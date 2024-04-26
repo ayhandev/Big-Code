@@ -1,0 +1,149 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Consolas, 'Courier New', monospace;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Устанавливаем минимальную высоту во всю высоту видимого экрана */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 10px;
+    padding: 0 20px;
+}
+
+/* Стили для навбара */
+.navbar {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    margin-left: 20px; /* Расстояние между логотипом и остальными элементами */
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end; /* Текст выравнивается вправо */
+    align-items: center;
+}
+
+.navbar ul li {
+    margin-left: 20px;
+}
+
+.navbar ul li:first-child {
+    margin-left: 0;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s;
+}
+
+.navbar ul li a:hover {
+    color: #ffcc00;
+}
+
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar ul {
+        display: none;
+        flex-direction: column;
+        background-color: #333;
+        padding: 10px;
+        position: absolute;
+        top: 80px;
+        right: 20px; /* Выравнивание меню справа на маленьких экранах */
+        width: 100%;
+    }
+
+    .navbar ul.show-menu {
+        display: flex;
+    }
+
+    .navbar ul li {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+/* Стили для футера */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: auto; /* Помещаем футер в самый низ страницы */
+}
+.articles {
+    background-color: #f9f9f9; /* Цвет фона */
+    padding: 50px 0; /* Отступы внутри раздела */
+}
+
+.articles h2 {
+    font-size: 32px; /* Размер заголовка */
+    text-align: center; /* Выравнивание текста по центру */
+    margin-bottom: 30px; /* Отступ снизу */
+}
+
+.article {
+    background-color: #fff; /* Цвет фона контейнера статьи */
+    padding: 20px; /* Внутренние отступы контейнера статьи */
+    margin-bottom: 20px; /* Отступ снизу между статьями */
+    border-radius: 5px; /* Закругление углов контейнера статьи */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень контейнера статьи */
+}
+
+.article h3 {
+    font-size: 24px; /* Размер заголовка статьи */
+    margin-bottom: 10px; /* Отступ снизу */
+}
+
+.article p {
+    font-size: 16px; /* Размер текста статьи */
+    line-height: 1.5; /* Межстрочный интервал */
+}
+
+
+/*  */
+.about-us {
+    background-color: #f3f3f3;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.about-us h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.about-us p {
+    font-size: 18px;
+    line-height: 1.6;
+}

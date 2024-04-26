@@ -8,7 +8,7 @@ def sign_up(request):
     if request.method == "POST" and form.is_valid():
         user = form.save()
         login(request, user)
-        return redirect('dom:home')
+        return redirect('dom:helo')
     return render(request, 'sign_up.html', {
         'form': form
     })
@@ -19,7 +19,7 @@ def sign_in(request):
     if request.method == 'POST' and form.is_valid():
         user = form.get_user()
         login(request, user)
-        return redirect('dom:home')
+        return redirect('dom:helo')
     return render(request, 'sign_in.html', {
         'form': form
     })

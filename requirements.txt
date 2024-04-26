@@ -10,6 +10,7 @@ google-pasta==0.2.0
 grpcio==1.62.2
 h5py==3.11.0
 idna==3.7
+JazzminTM==1.0.6.1
 keras==3.2.1
 libclang==18.1.1
 Markdown==3.6

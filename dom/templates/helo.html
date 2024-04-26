@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIG CODE</title>
+    <link rel="stylesheet" href="{% static 'CSS/base.css' %}">
+</head>
+<body>
+    <!-- Навбар -->
+    <nav class="navbar">
+        <a href="{% url 'dom:helo' %}" class="logo">BIG CODE</a>
+        <div class="container">
+            <div class="menu-toggle">&#9776;</div> <!-- Бургер-меню -->
+            <ul class="menu">
+                <li><a href="#about">About Us</a></li>
+                <li><a href="{% url 'dom:doc' %}">Documentation</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'dom:home' %}">Editor</a></li>
+                <li><a style="color: orangered;" href="{% url 'users:sign_out' %}">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'users:sign_up' %}">Register</a></li>
+                <li>/</li>
+                <li><a href="{% url 'users:sign_in' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Секция с новостями и статьями -->
+    <section class="articles" style="align-items: center;text-align: center;">
+        <div style="margin: 0 auto; max-width: 1200px;">
+            <h2>News about our site</h2>
+            <!-- Здесь можете добавить ваш контент с новостями и статьями -->
+            {% for obj in infa_objects %}
+            <div class="article">
+                <h3>{{ obj.name }}</h3>
+                <p>{{ obj.description }}</p>
+            </div>
+            {% endfor %}
+            <!-- Добавьте больше статей по мере необходимости -->
+        </div>
+    </section>
+
+    <section id="about" class="about-us" style="text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2>About Us</h2>
+            <p>Welcome to our website BIG CODE! We provide a platform for software development and testing. Our goal is to help developers create quality code and share their experience with the community.</p>
+            <p>We aim to make our website a convenient tool for everyone interested in programming and software development.</p>
+        </div>
+    </section>
+    
+    <!-- Футер -->
+    <footer>
+        <div style="text-align: center;">
+            &copy; 2024 BIG CODE. All rights reserved.
+            <a href="https://github.com/ayhandev/" style="color: white;">ayhandev</a>
+        </div>
+    </footer>
+
+    <!-- JavaScript для бургер-меню -->
+    <script src="{% static 'JS/base.js' %}"></script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
-import threading
+from .forms import InfaForm
+from .models import infa
 import subprocess
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -18,13 +19,12 @@ def run_code(request):
         language = request.POST.get('language', '')
         try:
             if language.lower() == 'html':
-                # Открываем HTML файл в браузере
+
                 with open('output.html', 'w') as f:
                     f.write(code)
-                subprocess.run(['xdg-open', 'output.html'])  # Замените 'xdg-open' на команду, подходящую для вашей операционной системы
+                subprocess.run(['xdg-open', 'output.html'])  
                 return JsonResponse({'output': 'HTML code executed successfully'})
             else:
-                # Выполняем код на других языках
                 result = subprocess.run(['python', '-c', code], capture_output=True, text=True, timeout=5)
                 output = result.stdout
                 if output:
@@ -43,10 +43,26 @@ def run_code(request):
 def doc(request):
     return render(request, 'doc.html')
 
-from django.utils.translation import activate
+# from django.utils.translation import activate
 
-def set_language(request):
-    if 'language' in request.GET:
-        language = request.GET['language']
-        activate(language)
-    return redirect(request.GET.get('next', '/'))
+# def set_language(request):
+#     if 'language' in request.GET:
+#         language = request.GET['language']
+#         activate(language)
+#     return redirect(request.GET.get('next', '/'))
+
+def helo(request):
+    infa_objects = infa.objects.all()
+    return render(request, 'helo.html', {'infa_objects': infa_objects})
+
+
+
+def submit_infa(request):
+    if request.method == 'POST':
+        form = InfaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('helo')  
+    else:
+        form = InfaForm()
+    return render(request, 'helo.html', {'form': form})

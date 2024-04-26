@@ -1,5 +1,7 @@
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.admin.views.decorators import staff_member_required
 from .forms import InfaForm
 from .models import infa
 import subprocess
@@ -55,14 +57,26 @@ def helo(request):
     infa_objects = infa.objects.all()
     return render(request, 'helo.html', {'infa_objects': infa_objects})
 
+def delete_infa(request, infa_id):
+    infa_obj = get_object_or_404(infa, pk=infa_id)  
+    if request.method == 'POST':
+        infa_obj.delete()
+        return redirect('dom:helo')
+    return render(request, 'confirm_delete.html', {'infa': infa_obj})
 
 
+@staff_member_required
 def submit_infa(request):
     if request.method == 'POST':
         form = InfaForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('helo')  
+            return redirect('dom:helo')  
     else:
         form = InfaForm()
     return render(request, 'helo.html', {'form': form})
+
+
+
+
+

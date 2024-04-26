@@ -33,13 +33,23 @@
         <div style="margin: 0 auto; max-width: 1200px;">
             <h2>News about our site</h2>
             <!-- Здесь можете добавить ваш контент с новостями и статьями -->
+            {% if infa_objects %}
             {% for obj in infa_objects %}
-            <div class="article">
-                <h3>{{ obj.name }}</h3>
-                <p>{{ obj.description }}</p>
-            </div>
+                <div class="article">
+                    <h3>{{ obj.name }}</h3>
+                    <p>{{ obj.description }}</p>
+                    {% if request.user.is_superuser %}
+                    <form method="post" action="{% url 'dom:delete_infa' obj.id %}">
+                        {% csrf_token %}
+                        <button style="color: white; border-radius: 24px; border: none; padding: 10px; background-color: orangered;"  type="submit">Delete</button>
+                    </form>
+            {% endif %}
+                </div>
             {% endfor %}
-            <!-- Добавьте больше статей по мере необходимости -->
+        {% else %}
+            <p>There are no entries available at this time.</p>
+        {% endif %}
+
         </div>
     </section>
 
@@ -51,6 +61,19 @@
         </div>
     </section>
     
+    {% if request.user.is_superuser %}
+<section class="submit-form">
+    <div style="text-align: center;">
+        <h2>Send information</h2>
+        <form method="post" action="{% url 'dom:submit_infa' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</section>
+{% endif %}
+
     <!-- Футер -->
     <footer>
         <div style="text-align: center;">

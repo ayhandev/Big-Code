@@ -61,6 +61,8 @@ body {
 }
 
 .menu-toggle {
+    align-items: center;
+    align-content: center;
     display: none;
     cursor: pointer;
     font-size: 24px;
@@ -75,7 +77,7 @@ body {
         padding: 10px;
         position: absolute;
         top: 80px;
-        right: 20px; /* Выравнивание меню справа на маленьких экранах */
+        right: 0; 
         width: 100%;
     }
 

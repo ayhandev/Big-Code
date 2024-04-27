@@ -1,22 +1,18 @@
+{% extends "base.html" %}
 {% block auth %}
+{% block content %}
 <style>
-    .container {
-        display: flex;
-        flex-direction: column;
-        background-color: #1e1e1e;
-        color: #d4d4d4;
-        font-family: Consolas, 'Courier New', monospace;
-        min-height: 100vh; /* Set minimum height to fill the viewport */
-        padding: 20px;
-    }
-    
+       
+        
     /* Styles for the authentication form */
     .auth-form {
         background-color: #2d2d30;
         color: #d4d4d4;
         padding: 20px;
         border-radius: 5px;
-        margin-top: 20px;
+        margin: 20px auto;
+        max-width: 1050px;
+        min-width: none;
     }
     
     .auth-form h1 {
@@ -61,7 +57,7 @@
 </style>
 <body style="margin: 0;">
     
-    <div class="container">
+    <div class="container" style="margin: 0 auto;">
         <div class="auth-form">
             <form class="form has-text-centered" method="post">
                 <h1 class="title is-size-2 has-text-centered">Sign up</h1>
@@ -84,5 +80,6 @@
         </div>
     </div>
 </body>
+{% endblock content %}
     {% endblock %}
     

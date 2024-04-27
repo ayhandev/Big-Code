@@ -1,110 +1,14 @@
+{% extends "base.html" %}
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIG CODE Documentation</title>
-    <style>
-        /* Styles for the code editor container */
-        .container {
-            display: flex;
-            flex-direction: column;
-            background-color: #1e1e1e;
-            color: #d4d4d4;
-            font-family: Consolas, 'Courier New', monospace;
-            min-height: 100vh; /* Set minimum height to fill the viewport */
-            padding: 20px;
-        }
-
-        /* Styles for the toolbar */
-        .toolbar {
-            display: flex;
-            background-color: #2d2d30;
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-
-        .toolbar button {
-            background-color: transparent;
-            border: none;
-            color: #d4d4d4;
-            cursor: pointer;
-            margin-right: 5px;
-        }
-
-        /* Styles for the code editor */
-        #code-editor {
-            flex: 1;
-            outline: none;
-            min-height: 300px; /* Set minimum height for the code editor */
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #2d2d30;
-            color: #d4d4d4;
-            border: none;
-            border-radius: 5px;
-        }
-
-        /* Styles for the language selection */
-        #language-selection-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        #language-selection {
-            padding: 5px;
-            background-color: #2d2d30;
-            color: #d4d4d4;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-right: 10px;
-        }
-
-        /* Styles for the language search input */
-        #language-search {
-            padding: 8px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            margin-top: 5px;
-            background-color: #2d2d30;
-            color: #d4d4d4;
-            width: 100%;
-            box-sizing: border-box;
-            outline: none;
-        }
-
-        /* Styles for the language suggestion box */
-        #language-suggestion {
-            background-color: #2d2d30;
-            color: #d4d4d4;
-            padding: 5px;
-            border-radius: 5px;
-            margin-top: 5px;
-            display: none;
-            max-height: 150px; /* Set maximum height for the suggestion box */
-            overflow-y: auto; /* Enable vertical scrolling */
-        }
-
-        /* Styles for language suggestions */
-        .language-suggestion-item {
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .language-suggestion-item:hover {
-            background-color: #3e3e3e;
-        }
-
-        /* Styles for the footer */
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #d4d4d4;
-        }
-    </style>
+    {% block content %}
+    
 </head>
 <body style="margin: 0;">
     <div class="container">
@@ -128,20 +32,12 @@
             <section>
                 <h2>Usage</h2>
                 <ul>
-                    <li>Launching the Editor: Open the index.html file in your web browser to launch the code editor.</li>
                     <li>Editing Code: Use the text area to input and edit your code with syntax highlighting and autocompletion support.</li>
                     <li>Language Selection: Choose the programming language of your code from the dropdown menu.</li>
                     <li>Running Code: Execute your code by clicking the "Run" button. The output will be displayed in a dedicated area or in a new browser tab, depending on the selected language.</li>
                 </ul>
             </section>
-            <section>
-                <h2>Installation</h2>
-                <ol>
-                    <li>Clone the repository: <code>git clone https://github.com/ayhandev/Big-Code.git</code></li>
-                    <li>Navigate to the project directory: <code>cd code-editor</code></li>
-                    <li>Open the index.html file in your preferred web browser.</li>
-                </ol>
-            </section>
+
             <section>
                 <h2>License</h2>
                 <p>This project is licensed under the Creative Commons Zero v1.0 Universal (CC0 1.0) Public Domain Dedication. This license allows users to use the code editor without restrictions, but they are not permitted to modify or distribute it after making changes.</p>
@@ -163,5 +59,6 @@
             </section>
         </main>
     </div>
+    {% endblock content %}
 </body>
 </html>

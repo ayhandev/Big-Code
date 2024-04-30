@@ -1,0 +1,90 @@
+.con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 0 auto 20px auto;
+    display: block;
+}
+
+h2 {
+    color: #333;
+}
+
+.text-muted {
+    color: #666;
+}
+
+hr {
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+/* Медиа-запрос для планшетов и мобильных устройств */
+@media (max-width: 768px) {
+    .con {
+        padding: 0 20px; /* Добавляем отступы по бокам */
+    }
+
+    .card {
+        max-width: 100%; /* Максимальная ширина карточки */
+    }
+
+    .avatar {
+        width: 100px; /* Уменьшаем размер аватарки */
+        height: 100px;
+    }
+
+    h2 {
+        font-size: 24px; /* Уменьшаем размер заголовка */
+    }
+
+    .text-muted {
+        font-size: 14px; /* Уменьшаем размер текста почты */
+    }
+}
+
+.button1 {
+    width: 100%; 
+    background-color: orange;
+    border: none; 
+    border-radius: 24px;
+    padding: 8px;
+    color: white; 
+    text-decoration: none; 
+    transition: background-color 0.3s ease; /* Анимация изменения цвета фона */
+}
+
+.button1:hover {
+    background-color: darkorange; /* Изменение цвета фона при наведении */
+}
+
+
+.button2 {
+    width: 100%; 
+    background-color: orangered;
+    border: none; 
+    border-radius: 24px;
+    padding: 8px;
+    color: white; 
+    text-decoration: none; 
+    transition: background-color 0.3s ease;
+}
+
+.button2:hover {
+    background-color: rgb(203, 54, 0); /* Изменение цвета фона при наведении */
+}

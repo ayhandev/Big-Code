@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
+from .models import Profile
 
 
 class SignUpForm(UserCreationForm):
@@ -24,14 +25,14 @@ class SignInForm(AuthenticationForm):
 
 
 class EditProfileForm(forms.ModelForm):
-    first_name = forms.CharField(label='First name')
-    last_name = forms.CharField(label='Last name')
+    model = Profile
     username = forms.CharField(label='Username')
     email = forms.EmailField(label='Email address')
+    fields = ['avatar', 'about']
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username', 'email')
+        fields = ( 'username', 'email')
 
 
 class ResetPasswordForm(PasswordChangeForm):
@@ -51,3 +52,10 @@ class ResetPasswordForm(PasswordChangeForm):
     class Meta:
         model = User
         fields = ['old_password', 'new_password1', 'new_password2']
+
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['avatar', 'about']

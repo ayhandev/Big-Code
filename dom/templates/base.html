@@ -12,12 +12,14 @@
         <a href="{% url 'dom:helo' %}" class="logo">BIG CODE</a>
         <div class="container">
             <div class="menu-toggle">&#9776;</div> <!-- Бургер-меню -->
-            <ul class="menu">
-                <li><a href="{% url 'dom:helo' %}">About Us</a></li>
+            <ul class="menu" style="text-align: center;">
+                <li><a href="#about">About Us</a></li>
                 <li><a href="{% url 'dom:doc' %}">Documentation</a></li>
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'dom:home' %}">Editor</a></li>
-                <li><a style="color: orangered;" href="{% url 'users:sign_out' %}">Logout</a></li>
+                <li><a href="{% url 'users:view_profile' %}"><img src="{{ profile.avatar.url }}" style="width: 40px; height: 30px; border-radius: 50%; margin-top: 3px;" alt="Avatar"></a></li>
+                
+
                 {% else %}
                 <li><a href="{% url 'users:sign_up' %}">Register</a></li>
                 <li>/</li>

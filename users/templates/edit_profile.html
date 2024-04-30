@@ -1,23 +1,130 @@
-
-
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
 {% block auth %}
-    <div class="columns is-centered">
-        <div class="column is-4">
-            <div class="box has-background-info-light">
-                <form class="form  has-text-centered" method="post" enctype="multipart/form-data">
-                    <h1 class="title is-size-2 has-text-centered">Edit profile</h1>
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="field">
-                            <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
-                            {{ field }}
-                        </div>
-                    {% endfor %}
-                    <button type="submit" class="button is-primary is-fullwidth">
-                        Submit
-                    </button>
-                </form>
+
+<link rel="stylesheet" href="{% static 'CSS/profile.css' %}">
+<style>
+    /* Стили для профиля */
+    .profile-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 20px;
+    }
+
+    .profile-form {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .form-field {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        font-weight: bold;
+        color: #333333;
+        font-size: 18px;
+    }
+
+    .form-control {
+        width: 100%;
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .submit-button {
+        width: 100%;
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .submit-button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Стили для предпросмотра аватара */
+    .avatar-container {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 3px solid #007bff;
+        overflow: hidden;
+        margin: 0 auto 20px; 
+        cursor: pointer; 
+        transition: border-color 0.3s ease-in-out; 
+    }
+
+    .avatar-preview {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; 
+    }
+
+    .avatar-container:hover {
+        border-color: #0056b3; 
+    }
+
+    /* Скрыть инпут для загрузки аватара */
+    #id_avatar {
+        display: none;
+    }
+
+    /* Адаптивность для мобильных устройств */
+    @media screen and (max-width: 600px) {
+        .profile-form {
+            max-width: 90%;
+        }
+    }
+</style>
+<div class="profile-container">
+        <form method="post" enctype="multipart/form-data" class="profile-form">
+            {% csrf_token %}
+            <div class="form-field">
+                <div class="avatar-container" onclick="document.getElementById('id_avatar').click()">
+                    <img src="{{ profile.avatar.url }}" class="avatar-preview" alt="Avatar Preview">
+                </div>
+                <input type="file" id="id_avatar" name="avatar" accept="image/*">
             </div>
-        </div>
-    </div>
+            <div class="form-field">
+                <label class="form-label">Username</label>
+                <div class="control">
+                    {{ user_form.username }}
+                </div>
+            </div>
+            <div class="form-field">
+                <label class="form-label">Email</label>
+                <div class="control">
+                    {{ user_form.email }}
+                </div>
+            </div>
+            <div class="form-field">
+                <label class="form-label">About</label>
+                <div class="control">
+                    {{ profile_form.about }}
+                </div>
+            </div>
+            <div class="form-field">
+                <div class="control">
+                    <button class="submit-button" type="submit">Save Changes</button>
+                </div>
+            </div>
+        </form>
+
+</div>
+
 {% endblock %}
+{% endblock content %}

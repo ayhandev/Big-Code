@@ -43,7 +43,13 @@ def run_code(request):
 
 
 def doc(request):
-    return render(request, 'doc.html')
+    user = request.user
+    profile = None
+
+    if user.is_authenticated:  
+        profile = user.profile
+
+    return render(request, 'doc.html', {'profile': profile})
 
 # from django.utils.translation import activate
 
@@ -55,7 +61,14 @@ def doc(request):
 
 def helo(request):
     infa_objects = infa.objects.all()
-    return render(request, 'helo.html', {'infa_objects': infa_objects})
+    user = request.user
+    profile = None
+
+    if user.is_authenticated:  
+        profile = user.profile
+
+    return render(request, 'helo.html', {'infa_objects': infa_objects, 'profile': profile})
+
 
 def delete_infa(request, infa_id):
     infa_obj = get_object_or_404(infa, pk=infa_id)  

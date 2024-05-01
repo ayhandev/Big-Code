@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.admin.views.decorators import staff_member_required
-from .forms import InfaForm
+from .forms import InfaForm, PublishedCodeForm
 from .models import infa
 import subprocess
 from django.contrib.auth.decorators import login_required
@@ -90,6 +90,19 @@ def submit_infa(request):
     return render(request, 'helo.html', {'form': form})
 
 
+@login_required
+def publish_code_submit(request):
+    if request.method == 'POST':
+        form = PublishedCodeForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            published_code = form.save(commit=False)
+            published_code.user = user
+            published_code.save()
+            return redirect('dom:helo')
+    else:
+        form = PublishedCodeForm()
+    return render(request, 'publication.html', {'form': form})
 
-
-
+def public_view(request):
+    return render(request, 'publication.html')

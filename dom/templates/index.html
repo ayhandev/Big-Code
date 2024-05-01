@@ -13,6 +13,54 @@
     <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
     <meta name="google-adsense-account" content="ca-pub-5015225987971479">
 </head>
+<style>
+    /* Стили для модального окна */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px; /* Максимальная ширина модального окна */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: modalopen;
+    animation-duration: 0.4s;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Адаптивность для мобильных устройств */
+@media only screen and (max-width: 600px) {
+    .modal-content {
+        width: 90%;
+    }
+}
+
+</style>
 <body style="margin: 0; background-color: #1e1e1e;">
     <div id="subscription-message" style="display: none;">
         <p>Для доступа к этой странице необходимо подписаться на наш Instagram: <a href="https://www.instagram.com/big_code_official/">@big_code_official</a></p>
@@ -26,6 +74,8 @@
         
         <div class="toolbar">
             <button id="run-button"><i class="fas fa-play"></i> Run</button>
+            <button id="publish-button"><i class="fas fa-share"></i>Publish Code</button>
+
             <a href="{% url "dom:helo" %}" style="text-decoration: none; color: white;">Back</a>
             <input type="file" id="file-input" multiple webkitdirectory directory style="display: none;">
             <div style="flex-grow: 1;"></div>
@@ -49,6 +99,38 @@
             <strong style="text-align: center; padding: 20px;">© 2024 BIG CODE. All rights reserved.<a href="https://github.com/ayhandev/" style="color: white;">ayhandev</a></strong>
     </div>
 
+
+
+    <!-- Модальное окно для публикации кода -->
+    <div id="publish-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Publication</h2>
+            <p>Please copy your code before continuing to post.</p>
+            <a href="{% url 'dom:public' %}">Continue</a>
+        </div>
+    </div>
+    
+    <script>
+        // Открыть модальное окно при клике на кнопку "Publish Code"
+document.getElementById('publish-button').addEventListener('click', function() {
+    document.getElementById('publish-modal').style.display = 'block';
+});
+
+// Закрыть модальное окно при клике на кнопку "Close"
+document.getElementsByClassName('close')[0].addEventListener('click', function() {
+    document.getElementById('publish-modal').style.display = 'none';
+});
+
+// Закрыть модальное окно при клике на фоновый слой
+document.querySelector('.modal-overlay').addEventListener('click', function(event) {
+    var modal = document.getElementById('publish-modal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/meta.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/hint/show-hint.min.js"></script>

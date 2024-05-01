@@ -1,0 +1,15 @@
+
+<section class="submit-form">
+    <div style="text-align: center;">
+        <h2>Send information</h2>
+        <form method="post" action="{% url 'dom:public_code_submit' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</section>
+
+
+
+

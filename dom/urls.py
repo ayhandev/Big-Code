@@ -12,7 +12,9 @@ urlpatterns = [
     path('doc/', views.doc, name='doc'),
     path('Code_submit/', views.publish_code_submit, name='public_code_submit'),
     path('public/', views.public_view, name='public'),
-    path('public_list/', views.public_list, name='public_list')
+    path('public_list/', views.public_list, name='public_list'),
+    path('add_comment/<int:post_id>/', views.add_comment, name='add_comment'),
+    path('add_like/<int:post_id>/', views.add_like, name='add_like'),
 
 ]
 

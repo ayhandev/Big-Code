@@ -2,17 +2,56 @@
 {% load static %}
 
 {% block content %}
+<h1 style="text-align: center;">Publications</h1>
 {% for pub in public|dictsortreversed:"date_published" %}
-    <div >
     <div style="border: 1px solid #ddd; margin-bottom: 20px; padding: 10px; background-color: #fff;">
-        <div style="display: flex; align-items: center; margin-bottom: 10px;">
-            <img src="{{ profile.avatar.url }}" alt="User" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
-            <h5 style="margin: 0;">{{ pub.user }}</h5>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center;">
+                <img src="{{ pub.user.profile.avatar.url }}" alt="User" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+                <h5 style="margin: 0;">{{ pub.user.username }}</h5>
+            </div>
         </div>
         <pre style="background-color: #1e1e1e; color: #d4d4d4; padding: 10px; border-radius: 5px; overflow-x: auto;">{{ pub.code }}</pre>
-        <p style="margin-bottom: 0;">{{ pub.description }}</p>
-        <p>{{ pub.date_published }}</p>
+        <div style="display: flex; align-items: center;">
+            <form method="POST" action="{% url 'dom:add_like' pub.id %}">
+                {% csrf_token %}
+                <button type="submit" style="background-color: white; border: none;"><img style="width: 30px;" src="{% static 'IMAGES/like.png' %}" alt=""></button>
+            </form>
+            <button onclick="toggleComments({{ pub.id }})" style="background-color: white; border: none; margin-left: 10px; margin-top: -10px;"><img style="width: 30px;" src="{% static 'IMAGES/comment.png' %}" alt=""></button>
+        </div>
+        
+        <p>Like: {{ pub.likes.count }}</p>
+        <p style="margin-bottom: 10px;">{{ pub.description }}</p>
+        <button style="background-color: whitesmoke; border-radius: 24px; border: none; padding: 7px;" onclick="toggleComments({{ pub.id }})">View all comments ({{ pub.comments.count }})</button>
+        <p style="margin-bottom: 5px;">Published on: {{ pub.date_published }}</p>
+        
+        <div id="comments-{{ pub.id }}" style="display: none;">
+            {% for comment in pub.comments.all %}
+                <div style="background-color: #f9f9f9; padding: 5px; margin-bottom: 5px;">
+                    <p style="margin: 0;"><strong>{{ comment.user.username }}</strong>: {{ comment.content }}</p>
+                    <p style="margin: 0; font-size: 0.8em;">{{ comment.date_posted }}</p>
+                </div>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+            <form method="POST" action="{% url 'dom:add_comment' pub.id %}">
+                {% csrf_token %}
+                <textarea name="comment" rows="3" cols="50" required></textarea><br>
+                <button type="submit" style="background-color: whitesmoke; border: none; border-radius: 14px; padding: 8px;margin-top: 10px;">Add comment</button>
+            </form>
+        </div>
     </div>
-</div>
-    {% endfor %}
+{% endfor %}
+
+<script>
+function toggleComments(postId) {
+    var commentsDiv = document.getElementById("comments-" + postId);
+    if (commentsDiv.style.display === "none") {
+        commentsDiv.style.display = "block";
+    } else {
+        commentsDiv.style.display = "none";
+    }
+}
+</script>
+
 {% endblock content %}

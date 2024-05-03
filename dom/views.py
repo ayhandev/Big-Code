@@ -120,3 +120,24 @@ def public_list(request):
     if user.is_authenticated:  
         profile = user.profile
     return render(request, 'publication_list.html', {"public": public, 'profile': profile })
+
+
+from django.shortcuts import redirect
+from .models import Comment, Like
+
+def add_comment(request, post_id):
+    if request.method == 'POST':
+        content = request.POST.get('comment')
+        user = request.user
+        published_code = PublishedCode.objects.get(pk=post_id)
+        comment = Comment.objects.create(user=user, published_code=published_code, content=content)
+    return redirect('dom:public_list')
+
+def add_like(request, post_id):
+    if request.method == 'POST':
+        user = request.user
+        published_code = PublishedCode.objects.get(pk=post_id)
+        like, created = Like.objects.get_or_create(user=user, published_code=published_code)
+        if not created:
+            like.delete()  
+    return redirect('dom:public_list')

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{% for pub in public|dictsortreversed:"date_published" %}
+    <div >
+    <div style="border: 1px solid #ddd; margin-bottom: 20px; padding: 10px; background-color: #fff;">
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <img src="{{ profile.avatar.url }}" alt="User" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+            <h5 style="margin: 0;">{{ pub.user }}</h5>
+        </div>
+        <pre style="background-color: #1e1e1e; color: #d4d4d4; padding: 10px; border-radius: 5px; overflow-x: auto;">{{ pub.code }}</pre>
+        <p style="margin-bottom: 0;">{{ pub.description }}</p>
+        <p>{{ pub.date_published }}</p>
+    </div>
+</div>
+    {% endfor %}
+{% endblock content %}

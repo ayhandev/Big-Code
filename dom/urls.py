@@ -11,7 +11,8 @@ urlpatterns = [
     path('delete_infa/<int:infa_id>/', views.delete_infa, name='delete_infa'),
     path('doc/', views.doc, name='doc'),
     path('Code_submit/', views.publish_code_submit, name='public_code_submit'),
-    path('public/', views.public_view, name='public')
+    path('public/', views.public_view, name='public'),
+    path('public_list/', views.public_list, name='public_list')
 
 ]
 

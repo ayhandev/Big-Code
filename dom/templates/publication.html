@@ -1,16 +1,39 @@
-
-<section class="submit-form">
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<section class="submit-form" style="margin: auto;">
     <div style="text-align: center;">
-        <h2>Send information</h2>
-        <form method="post" action="{% url 'dom:public_code_submit' %}">
+        <h2>Publish</h2>
+        <form method="POST" action="{% url 'dom:public_code_submit' %}">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Send</button>
+            <label for="code">Code:</label><br>
+            <textarea name="code" id="code-editor"></textarea>
+
+            <label for="description">Description:</label><br>
+            <textarea name="description" id="description" rows="5" cols="50"></textarea><br><br>
+    
+            <button type="submit">Publish</button>
         </form>
+        <ul>
+            <li><p>Please forget to include information about your code in the <br> description so that other users understand how your code works.</p></li>
+            <li><p>Please do not write swear words in the description.</p></li>
+        </ul>
     </div>
 </section>
+<script>
+    var editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+        lineNumbers: true,
+        theme: 'dracula',
+        autoCloseBrackets: true, // Auto-close brackets
+        matchBrackets: true,
+        lint: true, // Enable linting
+        extraKeys: {"Ctrl-Space": "autocomplete"}, // Trigger autocomplete on Ctrl+Space
+        hintOptions: {hint: CodeMirror.hint.anyword, html: true} // Enable hinting for any word and HTML tags
+    });
+</script>
 
-
+{% endblock content %}
 
 
 {% comment %} сделал айханчик {% endcomment %}

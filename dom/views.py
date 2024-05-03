@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.admin.views.decorators import staff_member_required
 from .forms import InfaForm, PublishedCodeForm
-from .models import infa
+from .models import infa, PublishedCode
 import subprocess
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -92,6 +92,7 @@ def submit_infa(request):
 
 @login_required
 def publish_code_submit(request):
+
     if request.method == 'POST':
         form = PublishedCodeForm(request.POST)
         if form.is_valid():
@@ -99,10 +100,23 @@ def publish_code_submit(request):
             published_code = form.save(commit=False)
             published_code.user = user
             published_code.save()
-            return redirect('dom:helo')
+            return redirect('dom:public_list')
     else:
         form = PublishedCodeForm()
     return render(request, 'publication.html', {'form': form})
 
 def public_view(request):
-    return render(request, 'publication.html')
+    user = request.user
+    profile = None
+    if user.is_authenticated:  
+        profile = user.profile
+
+    return render(request, 'publication.html', {'profile': profile })
+
+def public_list(request):
+    public = PublishedCode.objects.all()
+    user = request.user
+    profile = None
+    if user.is_authenticated:  
+        profile = user.profile
+    return render(request, 'publication_list.html', {"public": public, 'profile': profile })

@@ -13,9 +13,12 @@
                     <p class="date-sent">{{ message.date_sent }}</p>
                 </div>
                 {% if message.user != request.user %}
-                    <img src="{{ message.user.profile.avatar.url }}" alt="Avatar" class="avatar">
-                    <p>{{ message.user.username }}</p>
-                {% endif %}
+    <a href="{% url 'users:other_profile' message.user.username %}">
+        <img src="{{ message.user.profile.avatar.url }}" alt="Avatar" class="avatar">
+        <p>{{ message.user.username }}</p>
+    </a>
+{% endif %}
+
             </div>
         {% endfor %}
     </div>

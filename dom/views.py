@@ -59,18 +59,20 @@ def doc(request):
 #         activate(language)
 #     return redirect(request.GET.get('next', '/'))
 
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from users.models import Profile
 
-@login_required
+
 def helo(request):
     infa_objects = infa.objects.all()
-    user = request.user
-    profile, created = Profile.objects.get_or_create(user=user)
+    profile = None
+
+    if request.user.is_authenticated:
+        profile = request.user.profile
 
     return render(request, 'helo.html', {'infa_objects': infa_objects, 'profile': profile})
-
 
 def delete_infa(request, infa_id):
     infa_obj = get_object_or_404(infa, pk=infa_id)  

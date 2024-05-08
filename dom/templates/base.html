@@ -17,6 +17,7 @@
                 <li><a href="{% url 'dom:doc' %}">Documentation</a></li>
                 <li><a href="{% url 'dom:public_list' %}">Publications</a></li>
                 {% if user.is_authenticated %}
+                <li><a href="{% url 'dom:messenger' %}">General chat</a></li>
                 <li><a href="{% url 'dom:home' %}">Editor</a></li>
                 <li><a href="{% url 'users:view_profile' %}"><img src="{{ profile.avatar.url }}" style="width: 40px; height: 30px; border-radius: 50%; margin-top: 3px;" alt="Avatar"></a></li>
                 

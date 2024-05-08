@@ -18,6 +18,7 @@
                 <li><a href="{% url 'dom:doc' %}">Documentation</a></li>
                 <li><a href="{% url 'dom:public_list' %}">Publications</a></li>
                 {% if user.is_authenticated %}
+                <li><a href="{% url 'dom:messenger' %}">General chat</a></li>
                 <li><a href="{% url 'dom:home' %}">Editor</a></li>
                 <li><a href="{% url 'users:view_profile' %}"><img src="{{ profile.avatar.url }}" style="width: 40px; height: 30px; border-radius: 50%; margin-top: 3px;" alt="Avatar"></a></li>
                 
@@ -30,28 +31,29 @@
             </ul>
         </div>
     </nav>
-
     <!-- Секция с новостями и статьями -->
     <section class="articles" style="align-items: center;text-align: center;">
         <div style="margin: 0 auto; max-width: 1200px;">
             <h2>News about our site</h2>
             <!-- Здесь можете добавить ваш контент с новостями и статьями -->
             {% if infa_objects %}
-            {% for obj in infa_objects %}
-                <div class="article">
-                    <h3>{{ obj.name }}</h3>
-                    <p>{{ obj.description }}</p>
-                    {% if request.user.is_superuser %}
-                    <form method="post" action="{% url 'dom:delete_infa' obj.id %}">
-                        {% csrf_token %}
-                        <button style="color: white; border-radius: 24px; border: none; padding: 10px; background-color: orangered;"  type="submit">Delete</button>
-                    </form>
+    {% for obj in infa_objects|dictsortreversed:"date" %}
+        <div class="article">
+            <h3>{{ obj.name }}</h3>
+            <p>{{ obj.description }}</p>
+            <p>{{ obj.date }}</p>
+            {% if request.user.is_superuser %}
+                <form method="post" action="{% url 'dom:delete_infa' obj.id %}">
+                    {% csrf_token %}
+                    <button style="color: white; border-radius: 24px; border: none; padding: 10px; background-color: orangered;"  type="submit">Delete</button>
+                </form>
             {% endif %}
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>There are no entries available at this time.</p>
-        {% endif %}
+        </div>
+    {% endfor %}
+{% else %}
+    <p>There are no entries available at this time.</p>
+{% endif %}
+
 
         </div>
     </section>

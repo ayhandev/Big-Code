@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'CSS/messenger.css' %}">
+<div id="messenger-container">
+    <h1 style="text-align: center;">General chat BIG CODE</h1>
+    <div id="messages">
+        {% for message in messages %}
+            <div class="message {% if message.user == request.user %}outgoing{% else %}incoming{% endif %}">
+                <div class="message-content">
+                    <p class="text">{{ message.content }}</p>
+                    <p class="date-sent">{{ message.date_sent }}</p>
+                </div>
+                {% if message.user != request.user %}
+                    <img src="{{ message.user.profile.avatar.url }}" alt="Avatar" class="avatar">
+                    <p>{{ message.user.username }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    
+    <div style="margin: 0 auto;">
+    <form id="message-form" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" style="max-width: 70px;">Send</button>
+    </form>
+</div>
+</div>
+{% endblock content %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'JS/messenger.js' %}"></script>

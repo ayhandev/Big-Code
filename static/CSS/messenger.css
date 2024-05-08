@@ -1,0 +1,108 @@
+#messenger-container {
+    max-width: 100%;
+    padding: 20px;
+}
+
+#messages {
+    margin-bottom: 20px;
+}
+
+.message {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.message .message-content {
+    background-color: #DCF8C6;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+}
+
+.message .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.message .text {
+    margin: 0;
+    font-size: 16px;
+}
+
+.message .date-sent {
+    margin: 0;
+    font-size: 12px;
+    color: #666;
+}
+
+#message-form {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+#message-form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+#message-form button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #0088cc;
+    color: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#message-form button:hover {
+    background-color: #005580;
+}
+
+.outgoing {
+    justify-content: flex-end;
+}
+
+.outgoing .message-content {
+    background-color: #DCF8C6;
+    color: #333;
+}
+
+.incoming .message-content {
+    background-color: #EAEAEA;
+    color: #333;
+}
+
+@media screen and (max-width: 768px) {
+    #messenger-container {
+        padding: 10px;
+    }
+    .message .avatar {
+        width: 30px;
+        height: 30px;
+    }
+    .message .text {
+        font-size: 14px;
+    }
+    .message .date-sent {
+        font-size: 10px;
+    }
+    #message-form input[type="text"] {
+        padding: 8px;
+    }
+    #message-form button {
+        padding: 8px 16px;
+    }
+    .message .message-content {
+        max-width: 80%;
+    }
+    #messages {
+        max-height: 300px;
+        overflow-y: scroll;
+    }
+}

@@ -15,6 +15,8 @@ urlpatterns = [
     path('public_list/', views.public_list, name='public_list'),
     path('add_comment/<int:post_id>/', views.add_comment, name='add_comment'),
     path('add_like/<int:post_id>/', views.add_like, name='add_like'),
+    path('messenger/', views.messenger, name='messenger'),
+    
 
 ]
 

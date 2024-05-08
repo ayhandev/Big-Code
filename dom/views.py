@@ -2,8 +2,8 @@ from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.admin.views.decorators import staff_member_required
-from .forms import InfaForm, PublishedCodeForm
-from .models import infa, PublishedCode
+from .forms import InfaForm, PublishedCodeForm, MessengerForm
+from .models import infa, PublishedCode, Comment, Like, Messenger
 import subprocess
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -59,13 +59,15 @@ def doc(request):
 #         activate(language)
 #     return redirect(request.GET.get('next', '/'))
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from users.models import Profile
+
+@login_required
 def helo(request):
     infa_objects = infa.objects.all()
     user = request.user
-    profile = None
-
-    if user.is_authenticated:  
-        profile = user.profile
+    profile, created = Profile.objects.get_or_create(user=user)
 
     return render(request, 'helo.html', {'infa_objects': infa_objects, 'profile': profile})
 
@@ -122,9 +124,6 @@ def public_list(request):
     return render(request, 'publication_list.html', {"public": public, 'profile': profile })
 
 
-from django.shortcuts import redirect
-from .models import Comment, Like
-
 def add_comment(request, post_id):
     if request.method == 'POST':
         content = request.POST.get('comment')
@@ -141,3 +140,26 @@ def add_like(request, post_id):
         if not created:
             like.delete()  
     return redirect('dom:public_list')
+
+
+@login_required
+def messenger(request):
+    user = request.user
+    profile = None
+    if user.is_authenticated: 
+        profile = user.profile
+        if request.method == 'POST':
+            form = MessengerForm(request.POST)
+            if form.is_valid():
+                messenger = form.save(commit=False)
+                messenger.user = request.user  
+                messenger.save()
+                return redirect('dom:messenger')
+        else:
+            form = MessengerForm()
+        
+        messages = Messenger.objects.all()
+        for message in messages:
+            message.content = message.get_content()  
+    return render(request, 'messenger.html', {'messages': messages, 'form': form, 'profile': profile})
+

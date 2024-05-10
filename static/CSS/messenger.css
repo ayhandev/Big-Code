@@ -1,11 +1,22 @@
+
+
+
+
 #messenger-container {
     max-width: 100%;
     padding: 20px;
+    /* height: 60%; */
 }
 
 #messages {
     margin-bottom: 20px;
+    height: 100%;
+    background-color: #D0D0D0;
+    padding: 30px 30px 0px 30px;
+    border-radius: 24px 24px 0px 0px;
+
 }
+
 
 .message {
     display: flex;
@@ -51,18 +62,8 @@
     margin-right: 10px;
 }
 
-#message-form button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #0088cc;
-    color: #fff;
-    border-radius: 20px;
-    cursor: pointer;
-}
 
-#message-form button:hover {
-    background-color: #005580;
-}
+
 
 .outgoing {
     justify-content: flex-end;
@@ -95,9 +96,7 @@
     #message-form input[type="text"] {
         padding: 8px;
     }
-    #message-form button {
-        padding: 8px 16px;
-    }
+
     .message .message-content {
         max-width: 80%;
     }
@@ -105,4 +104,21 @@
         max-height: 300px;
         overflow-y: scroll;
     }
+}
+
+.form_style {
+    text-align: center;
+    background-color: #D0D0D0;
+    padding-top: 5%;
+    margin-top: -5%;
+    padding-bottom: 2%; 
+    border-radius: 0px 0px 24px 24px;
+    padding-left: 30px; 
+    padding-right: 60px;
+}
+
+#send-button {
+    margin-left: -80px;
+    background-color: transparent; 
+    border: none;
 }

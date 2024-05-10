@@ -11,4 +11,4 @@ function updateChat() {
     });
 }
 
-setInterval(updateChat, 3000);
+setInterval(updateChat, 2000);

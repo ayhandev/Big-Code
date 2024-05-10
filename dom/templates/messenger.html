@@ -3,9 +3,12 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'CSS/messenger.css' %}">
+<style>
+
+</style>
 <div id="messenger-container">
     <h1 style="text-align: center;">General chat BIG CODE</h1>
-    <div id="messages">
+    <div id="messages" style="height: 300px; overflow-y: auto; ">
         {% for message in messages %}
             <div class="message {% if message.user == request.user %}outgoing{% else %}incoming{% endif %}">
                 <div class="message-content">
@@ -13,23 +16,42 @@
                     <p class="date-sent">{{ message.date_sent }}</p>
                 </div>
                 {% if message.user != request.user %}
-    <a href="{% url 'users:other_profile' message.user.username %}">
-        <img src="{{ message.user.profile.avatar.url }}" alt="Avatar" class="avatar">
-        <p>{{ message.user.username }}</p>
-    </a>
-{% endif %}
-
+                    <img src="{{ message.user.profile.avatar.url }}" alt="Avatar" width="80px" class="avatar">
+                    <p>{{ message.user.username }}</p>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
+    <form id="message-form" class="form_style" method="post" >
+        {% csrf_token %}
+        <input type="text" id="id_content" name="content" style="width:100%; border-radius: 9px; margin-bottom: 0px; border: 1px solid black;" placeholder="Type your message here">
+        <button id="send-button">
+            <img src="{% static 'IMAGES/send_icon.png' %}" width="30px" alt="">
+        </button>
+        
+    </form>
+</div>
+
     
-    <div style="margin: 0 auto;">
+{% comment %} <div style="">
     <form id="message-form" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" style="max-width: 70px;">Send</button>
-    </form>
-</div>
+        <button type="submit" >Send</button>
+    </form> 
+</div> {% endcomment %}
+
+{% comment %} <form id="message-form" method="post">
+    {% csrf_token %}
+    <div style="display: flex; ">
+        <label for="id_content">Message:</label>
+        <input type="text" id="id_content" name="content">
+    </div>
+    <button type="submit">Send</button>
+</form> {% endcomment %}
+
+
+
 </div>
 {% endblock content %}
 

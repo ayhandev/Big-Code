@@ -76,8 +76,3 @@ def view_profile(request):
     return render(request, 'profile.html', context)
 
 
-@login_required
-def view_other_profile(request, user_id):
-    other_user_profile = get_object_or_404(Profile, pk=user_id)
-    context = {'profile': other_user_profile, 'other_user': other_user_profile.user}
-    return render(request, 'other_profile.html', context)

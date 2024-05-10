@@ -10,6 +10,9 @@ from django.conf import settings
 
 
 
+def loader(request):
+    return render(request, 'loader.html')
+
 @login_required(login_url='users/sign_in')
 def home(request):
     languages = [{'code': code, 'name': name} for code, name in settings.LANGUAGES]
@@ -64,13 +67,18 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from users.models import Profile
 
+from django.contrib.auth.models import AnonymousUser
 
 def helo(request):
     infa_objects = infa.objects.all()
-    profile = None
-
-    if request.user.is_authenticated:
-        profile = request.user.profile
+    user = request.user
+    if not isinstance(user, AnonymousUser):
+        try:
+            profile = Profile.objects.get(user=user)
+        except Profile.DoesNotExist:
+            profile = Profile.objects.create(user=user)
+    else:
+        profile = None
 
     return render(request, 'helo.html', {'infa_objects': infa_objects, 'profile': profile})
 

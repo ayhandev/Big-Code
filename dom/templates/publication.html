@@ -2,23 +2,20 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'style.css' %}">
-<section class="submit-form" style="margin: auto;">
+<section class="submit-form" style="margin: auto; margin-top: 130px; border-radius: 15px;">
     <div style="text-align: center;">
-        <h2>Publish</h2>
+        <h2>Publish</h2>  
         <form method="POST" action="{% url 'dom:public_code_submit' %}">
             {% csrf_token %}
             <label for="code">Code:</label><br>
-            <textarea name="code" id="code-editor"></textarea>
+            <textarea name="code" id="code-editor" style="border-radius: 15px; height: 100px;"></textarea>
 
             <label for="description">Description:</label><br>
-            <textarea name="description" id="description" rows="5" cols="50"></textarea><br><br>
+            <textarea name="description" id="description" rows="5" cols="50" style="border-radius: 15px;"></textarea><br><br>
     
-            <button type="submit">Publish</button>
-        </form>
-        <ul>
-            <li><p>Please forget to include information about your code in the <br> description so that other users understand how your code works.</p></li>
-            <li><p>Please do not write swear words in the description.</p></li>
-        </ul>
+            <button type="submit" style="background-color: rgb(182, 118, 0);">Publish</button>
+        </form><p>Please forget to include information about your code in the description so that other users understand how your code works.</p>
+            <p>Please do not write swear words in the description.</p>
     </div>
 </section>
 <script>

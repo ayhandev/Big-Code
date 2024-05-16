@@ -5,8 +5,9 @@
 #messenger-container {
     max-width: 100%;
     padding: 20px;
+
     /* height: 60%; */
-}
+} 
 
 #messages {
     margin-bottom: 20px;
@@ -14,7 +15,10 @@
     background-color: #D0D0D0;
     padding: 30px 30px 0px 30px;
     border-radius: 24px 24px 0px 0px;
-
+    height: 430px; 
+    overflow-y: auto; 
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 
@@ -79,7 +83,7 @@
     color: #333;
 }
 
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
     #messenger-container {
         padding: 10px;
     }
@@ -101,7 +105,8 @@
         max-width: 80%;
     }
     #messages {
-        max-height: 300px;
+        max-height: 1050px;
+        height: 100%;
         overflow-y: scroll;
     }
 }

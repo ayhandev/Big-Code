@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block content %}
+<br><br><br><br>
+{% if public|dictsortreversed:"date_published" %}
 <h1 style="text-align: center;">Publications</h1>
 {% for pub in public|dictsortreversed:"date_published" %}
     <div style="border: 1px solid #ddd; margin-bottom: 20px; padding: 10px; background-color: #fff;">
@@ -42,7 +44,11 @@
         </div>
     </div>
 {% endfor %}
-
+{% else %}
+    <div style="margin: 0 auto; max-width: 80%; margin-top: 5%;">
+        <p style="font-size: 25px;">There are no entries available at this time.</p> 
+    </div><br>
+{% endif %}
 <script>
 function toggleComments(postId) {
     var commentsDiv = document.getElementById("comments-" + postId);

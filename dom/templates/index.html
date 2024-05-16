@@ -12,34 +12,69 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/theme/dracula.min.css">
     <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
     <meta name="google-adsense-account" content="ca-pub-5015225987971479">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
 </head>
+<style>
+    .nav {
+        position: relative;
+        z-index: 999;
+    }
+     li {
+        transition: transform 0.3s ease;
+    }
+
+    li:hover {
+        transform: scale(1.2); /* Increase size by 20% */
+    }
+
+    .logo {
+        transition: transform 0.3s ease;
+    }
+    .logo:hover {
+        transform: scale(1.2);
+    }
+</style>
 <body style="margin: 0; background-color: #1e1e1e;">
     <div id="subscription-message" style="display: none;">
         <p>Для доступа к этой странице необходимо подписаться на наш Instagram: <a href="https://www.instagram.com/big_code_official/">@big_code_official</a></p>
     </div>
-    
-    <div class="container">
-        
-        
-        <h1 style="margin: 0 auto 20px;">BIG CODE </h1>
-        
-        
-        <div class="toolbar">
-            <button id="run-button"><i class="fas fa-play"></i> Run</button>
-            <button id="publish-button"><i class="fas fa-share"></i>Publish Code</button>
-
-            <a href="{% url "dom:helo" %}" style="text-decoration: none; color: white;">Back</a>
-            <input type="file" id="file-input" multiple webkitdirectory directory style="display: none;">
-            <div style="flex-grow: 1;"></div>
-            <a href="#" style="margin-left: auto;margin-right: 5px; color: white;">{{ user }}</a>
+    <nav class="nav">
+        <i class="uil uil-bars navOpenBtn"></i>
+        <a href="{% url 'dom:helo' %}" class="logo">BIG CODE</a>
+        <ul class="nav-links">
+          <i class="uil uil-times navCloseBtn"></i>
+          <li><a href="#" id="publish-button">Publish code |</a></li>
+          <li><a><div id="language-selection">Selected language: HTML</div></a></li>
+          <li><a href="#" id="run-button">| Run <i class="fas fa-play"></i></a></li>
+        </ul>
+        <i class="uil uil-search search-icon" id="searchIcon"></i>
+        <div class="search-box logo">
+          <i class="uil uil-search search-icon"></i>
+          <!-- <input type="text" placeholder="Search here..." /> -->
+          <input type="text" id="language-search" placeholder="Search languages...">
         </div>
+      </nav>
+
+    <div class="container">
+        <br><br><br>
+        <div id="language-suggestion"></div>
+        <!-- <h1 style="margin: 0 auto 20px;"><a href="{% url 'dom:helo' %}" style="color: white; text-decoration: none;">BIG CODE</a></h1> -->
+        <!-- <div class="toolbar"> -->
+            <!-- <button id="run-button"><i class="fas fa-play"></i> Run</button> -->
+            <!-- <button id="publish-button"><i class="fas fa-share"></i>Publish Code</button> -->
+
+            <!-- <a href="{% url "dom:helo" %}" style="text-decoration: none; color: white;">Back</a> -->
+            <!-- <input type="file" id="file-input" multiple webkitdirectory directory style="display: none;">
+            <div style="flex-grow: 1;"></div> -->
+            <!-- <a href="#" style="margin-left: auto;margin-right: 5px; color: white;">{{ user }}</a> -->
+        <!-- </div> -->
         
         <div id="language-selection-container">
-            <div id="language-selection">Selected Language: HTML</div>
-            <input type="text" id="language-search" placeholder="Search languages...">
+            <!-- <div id="language-selection">Selected Language: HTML</div> -->
+            <!-- <input type="text" id="language-search" placeholder="Search languages..."> -->
         </div>
         <div id="language-suggestion"></div>
-        <textarea id="code-editor"></textarea>
+        <textarea id="code-editor" ></textarea>
         <div id="terminal">
             <div id="terminal-output"></div>
             <input type="text" id="terminal-input"  style="width: calc(100% - 70px); color: white; background-color: transparent; border: none; outline: none;">
@@ -54,15 +89,38 @@
 
 
     <!-- Модальное окно для публикации кода -->
-    <div id="publish-modal" class="modal">
+    <div id="publish-modal" class="modal" style="margin-top: 40px;">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Publication</h2>
-            <p>Please copy your code before continuing to post.</p>
+            <!-- <h2>To publish your code you need to copy it and then click continue button</h2><br> -->
+            <p style="font-size: 20px;">To publish your code you need to copy it and then click continue button</p><br>
             <a href="{% url 'dom:public' %}" class="continue1">Continue</a>
         </div>
     </div>
-    
+<script>
+    const nav = document.querySelector(".nav"),
+  searchIcon = document.querySelector("#searchIcon"),
+  navOpenBtn = document.querySelector(".navOpenBtn"),
+  navCloseBtn = document.querySelector(".navCloseBtn");
+searchIcon.addEventListener("click", () => {
+  nav.classList.toggle("openSearch");
+  nav.classList.remove("openNav");
+  if (nav.classList.contains("openSearch")) {
+    return searchIcon.classList.replace("uil-search", "uil-times");
+  }
+  searchIcon.classList.replace("uil-times", "uil-search");
+});
+navOpenBtn.addEventListener("click", () => {
+  nav.classList.add("openNav");
+  nav.classList.remove("openSearch");
+  searchIcon.classList.replace("uil-times", "uil-search");
+});
+navCloseBtn.addEventListener("click", () => {
+  nav.classList.remove("openNav");
+});
+</script>
+
+
     <script>
         // Открыть модальное окно при клике на кнопку "Publish Code"
 document.getElementById('publish-button').addEventListener('click', function() {
@@ -122,12 +180,16 @@ document.querySelector('.modal-overlay').addEventListener('click', function(even
         var editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
             lineNumbers: true,
             theme: 'dracula',
-            autoCloseBrackets: true, // Auto-close brackets
+            autoCloseBrackets: true,
             matchBrackets: true,
-            lint: true, // Enable linting
-            extraKeys: {"Ctrl-Space": "autocomplete"}, // Trigger autocomplete on Ctrl+Space
-            hintOptions: {hint: CodeMirror.hint.anyword, html: true} // Enable hinting for any word and HTML tags
+            lint: true,
+            extraKeys: {"Ctrl-Space": "autocomplete"},
+            hintOptions: {hint: CodeMirror.hint.anyword, html: true}
         });
+        
+        // Установка z-index через CSS
+        editor.getWrapperElement().style.zIndex = "0";
+        
 
         function setLanguage(language) {
             document.getElementById('language-selection').textContent = 'Selected Language: ' + language;
@@ -289,5 +351,6 @@ document.querySelector('.modal-overlay').addEventListener('click', function(even
             }
         }
     </script>
+
 </body>
 </html>

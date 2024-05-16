@@ -7,14 +7,24 @@
     <title>BIG CODE</title>
     <link rel="stylesheet" href="{% static 'CSS/base.css' %}">
 </head>
-<body>
+<body style="background-color: white;">
     <!-- Навбар -->
+    <style>
+        .menu li {
+            transition: transform 0.3s ease;
+        }
+    
+        .menu li:hover {
+            transform: scale(1.2); /* Increase size by 20% */
+        }
+    </style>
+    
     <nav class="navbar">
         <a href="{% url 'dom:helo' %}" class="logo">BIG CODE</a>
         <div class="container">
             <div class="menu-toggle">&#9776;</div> <!-- Бургер-меню -->
             <ul class="menu" style="text-align: center;">
-                <li><a href="#about">About Us</a></li>
+                <li><a href="{% url 'dom:helo' %}">About Us</a></li>
                 <li><a href="{% url 'dom:doc' %}">Documentation</a></li>
                 <li><a href="{% url 'dom:public_list' %}">Publications</a></li>
                 {% if user.is_authenticated %}
@@ -32,13 +42,14 @@
         </div>
     </nav>
     <!-- Секция с новостями и статьями -->
-    <section class="articles" style="align-items: center;text-align: center;">
-        <div style="margin: 0 auto; max-width: 1200px;">
-            <h2>News about our site</h2>
+    <section class="articles" style="align-items: center;text-align: center; box-shadow: none;">
+        <div style="margin: 0 auto; max-width: 80%;box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;border-radius: 15px;">
+            <br><h2>News about our site</h2>
             <!-- Здесь можете добавить ваш контент с новостями и статьями -->
             {% if infa_objects %}
     {% for obj in infa_objects|dictsortreversed:"date" %}
         <div class="article">
+            <hr style="width: 80%;color: rgb(128, 125, 125);">
             <h3>{{ obj.name }}</h3>
             <p>{{ obj.description }}</p>
             <p>{{ obj.date }}</p>
@@ -50,16 +61,18 @@
             {% endif %}
         </div>
     {% endfor %}
-{% else %}
-    <p>There are no entries available at this time.</p>
-{% endif %}
-
-
+    {% else %}
+    
+            <div style="margin: 0 auto; max-width: 80%;border-radius: 15px; box-shadow: none;">
+                <p>There are no entries available at this time.</p> 
+            </div><br>
+    {% endif %}
         </div>
+        
     </section>
-
+    
     <section id="about" class="about-us" style="text-align: center;">
-        <div style="max-width: 1200px; margin: 0 auto;">
+        <div style="max-width: 80%; margin: 0 auto;box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;border-radius: 15px;padding-top: 5px; padding-bottom: 5px;">
             <h2>About Us</h2>
             <p>Welcome to our website BIG CODE! We provide a platform for software development and testing. Our goal is to help developers create quality code and share their experience with the community.</p>
             <p>We aim to make our website a convenient tool for everyone interested in programming and software development.</p>
@@ -86,7 +99,6 @@
             <a href="https://github.com/ayhandev/" style="color: white;">ayhandev</a>
         </div>
     </footer>
-
     <!-- JavaScript для бургер-меню -->
     <script src="{% static 'JS/base.js' %}"></script>
 </body>

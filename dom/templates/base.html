@@ -8,18 +8,27 @@
 </head>
 <body>
     <!-- Навбар -->
+    <style>
+        .menu li {
+            transition: transform 0.3s ease;
+        }
+    
+        .menu li:hover {
+            transform: scale(1.2); /* Increase size by 20% */
+        }
+    </style>
     <nav class="navbar">
         <a href="{% url 'dom:helo' %}" class="logo">BIG CODE</a>
         <div class="container">
             <div class="menu-toggle">&#9776;</div> <!-- Бургер-меню -->
             <ul class="menu" style="text-align: center;">
-                <li><a href="#about">About Us</a></li>
+                <li><a href="{% url 'dom:helo' %}">About Us</a></li>
                 <li><a href="{% url 'dom:doc' %}">Documentation</a></li>
                 <li><a href="{% url 'dom:public_list' %}">Publications</a></li>
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'dom:messenger' %}">General chat</a></li>
                 <li><a href="{% url 'dom:home' %}">Editor</a></li>
-                <li><a href="{% url 'users:view_profile' %}"><img src="{{ profile.avatar.url }}" style="width: 40px; height: 30px; border-radius: 50%; margin-top: 3px;" alt="Avatar"></a></li>
+                <li><a href="{% url 'users:view_profile' %}"><img src="{{ profile.avatar.url }}" style="height: 30px;width: 30px; margin-top: 3px; border-radius: 15px;" alt="Avatar"></a></li>
                 
 
                 {% else %}

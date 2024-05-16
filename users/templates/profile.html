@@ -1,19 +1,21 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static %}   
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'CSS/profile.css' %}">
 
 <div class="con">
     <div class="card">
-
-        <img src="{{ profile.avatar.url }}" class="avatar" alt="Avatar">
-        <p>Username: <span>{{ user.username }}</span></p>
-        <p class="text-muted">Email: {{ user.email }}</p>
-        <hr>
-        <hr>
+ 
+        <img src="{{ profile.avatar.url }}" class="avatar" alt="Avatar"><hr>
+        <p style="font-size: 24px;">Username: <span>{{ user.username }}</span></p><hr>
+        {% if user.email %}
+            <p class="text-muted">Email: {{ user.email }}</p>
+        {% endif %}
+        {% comment %} <hr>
+        <hr> {% endcomment %}
         <a  href="{% url 'users:edit_profile' %}"><button class="button1">EDIT PROFILE</button></a>
-        <a  href="{% url 'users:sign_out' %}"><button class="button2" style="margin-top: 10px;">LOGOUT</button></a>
+        <a  href="{% url 'users:sign_out' %}"><button class="button2" style="margin-top: 20px;">LOGOUT</button></a>
         
     </div>
 </div>

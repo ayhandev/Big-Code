@@ -6,10 +6,10 @@
 <style>
 
 </style>
-<div id="messenger-container">
+<div id="messenger-container"> <br><br><br><br>
     <h1 style="text-align: center;">General chat BIG CODE</h1>
-    <div id="messages" style="height: 300px; overflow-y: auto; ">
-        {% for message in messages %}
+    <div id="messages">
+        {% for message in messages reversed %}
             <div class="message {% if message.user == request.user %}outgoing{% else %}incoming{% endif %}">
                 <div class="message-content">
                     <p class="text">{{ message.content }}</p>
@@ -22,38 +22,32 @@
             </div>
         {% endfor %}
     </div>
+    
+    {% comment %} <div id="messages" >
+        {% for message in messages %}
+            <div class="message {% if message.user == request.user %}outgoing{% else %}incoming{% endif %}">
+                <div class="message-content">
+                    <p class="text">{{ message.content }}</p>
+                    <p class="date-sent">{{ message.date_sent }}</p>
+                </div>
+                {% if message.user != request.user %}
+                    <img src="{{ message.user.profile.avatar.url }}" alt="Avatar" width="80px" class="avatar">
+                    <p>{{ message.user.username }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div> {% endcomment %}
     <form id="message-form" class="form_style" method="post" >
         {% csrf_token %}
-        <input type="text" id="id_content" name="content" style="width:100%; border-radius: 9px; margin-bottom: 0px; border: 1px solid black;" placeholder="Type your message here">
+        <input type="text" id="id_content" name="content" style="width:100%; border-radius: 9px; margin-bottom: 0px;" placeholder="Type your message here">
         <button id="send-button">
-            <img src="{% static 'IMAGES/send_icon.png' %}" width="30px" alt="">
+            <img src="{% static 'IMAGES/send_icon.png' %}" width="30px"alt="">
         </button>
         
     </form>
 </div>
 
-    
-{% comment %} <div style="">
-    <form id="message-form" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" >Send</button>
-    </form> 
-</div> {% endcomment %}
-
-{% comment %} <form id="message-form" method="post">
-    {% csrf_token %}
-    <div style="display: flex; ">
-        <label for="id_content">Message:</label>
-        <input type="text" id="id_content" name="content">
-    </div>
-    <button type="submit">Send</button>
-</form> {% endcomment %}
-
-
-
 </div>
 {% endblock content %}
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'JS/messenger.js' %}"></script>

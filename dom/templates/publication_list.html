@@ -3,6 +3,8 @@
 
 {% block content %}
 <br><br><br><br>
+{% if user.is_authendicated %}
+
 {% if public|dictsortreversed:"date_published" %}
 <h1 style="text-align: center;">Publications</h1>
 {% for pub in public|dictsortreversed:"date_published" %}
@@ -59,5 +61,46 @@ function toggleComments(postId) {
     }
 }
 </script>
+{% else %}
+<style>
+
+    .container1 {
+        margin: auto;
+        text-align:  center;
+    }
+    .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .button {
+        padding: 15px;
+        color: white;
+        border-radius: 14px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+    .button-create {
+        background-color: orange;
+    }
+    .button-create:hover {
+        background-color: darkorange;
+    }
+    .button-login {
+        background-color: gray;
+    }
+    .button-login:hover {
+        background-color: darkgray;
+    }
+</style>
+<div class="container1">
+    <h3>Log in (create) an account to view posts by other users.</h3>
+    <div class="buttons">
+        <a href="{% url 'users:sign_up' %}" class="button button-create">Create an account</a>
+        <a href="{% url 'users:sign_in' %}" class="button button-login">Login to account</a>
+    </div>
+</div>
+{% endif %}
 
 {% endblock content %}
